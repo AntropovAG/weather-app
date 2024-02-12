@@ -19,7 +19,8 @@ export default function Searchbar({
     let latitude;
     let longitude;
     setErrorMessage("");
-    getCoordinates(cityName)
+    if (cityName.length > 0) {
+      getCoordinates(cityName)
       .then((coordinates) => {
         if(coordinates.length > 0) {
         latitude = coordinates[0].lat;
@@ -37,7 +38,12 @@ export default function Searchbar({
       })
       .finally(() => {
         cityInput.value = "";
+        setCityName("");
       });
+    } else {
+      setErrorMessage("Please enter city name!")
+    }
+
   }
 
   return (

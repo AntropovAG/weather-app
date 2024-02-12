@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import Searchbar from './components/searchbar';
 import { requestCurrentWeather, requestCoordinates, requestFiveDaysForecast } from './API/API';
-
+import CurrentWeatherDisplay from './components/currentWeatherDisplay';
+import styles from './App.module.css'
 
 function App() {
   const [checkbox, setCheckbox] = useState("current")
@@ -84,14 +84,12 @@ function App() {
   }, [data])
 
   return (
-    <div className="App">
-      <main>
+    <div className={styles.page}>
+      <main className={styles.main}>
         <Searchbar getWeatherInCurrentPosition={getWeatherInCurrentPosition} getCoordinates={requestCoordinates} getCurrentWeather={getCurrentWeather} getFiveDaysForecast={getFiveDaysForecast} checkbox={checkbox} setCheckbox={setCheckbox} />
         <section>
           {data.id === "currentWeather" ? (
-            <div>
-              Weather in {data.city} is {data.temp} &deg;C, and it is {data.weather}
-            </div>
+            <CurrentWeatherDisplay data={data}/>
           ) : data.id === "fiveDaysForecast" ? (
             <div>
               <h1>The weather in the city of {data.city} is:</h1>
