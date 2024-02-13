@@ -5,5 +5,5 @@
 
 .main {
   display: grid;
-  grid-template-columns: 30% auto;
+  grid-template-columns: minmax(240px, 30%) 70%;
 }
