@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Searchbar from './components/searchbar';
 import { requestCurrentWeather, requestCoordinates, requestFiveDaysForecast } from './API/API';
 import CurrentWeatherDisplay from './components/currentWeatherDisplay';
 import styles from './App.module.css'
+import './utils/normalize.css'
+import FiveDaysForecastDisplay from './components/fiveDaysForecastDisplay';
 
 function App() {
   const [checkbox, setCheckbox] = useState("current")
@@ -16,7 +18,10 @@ function App() {
           id: "currentWeather",
           city: res.name,
           temp: Math.round(res.main.temp),
-          weather: res.weather[0].main
+          feelsLike: Math.round(res.main.feels_like),
+          humidity: res.main.humidity,
+          pressure: res.main.pressure,
+          weather: res.weather[0].description
         }
         setData(weatherData);
       })
@@ -29,7 +34,6 @@ function App() {
   function getFiveDaysForecast(latitude, longitude) {
     requestFiveDaysForecast(latitude, longitude)
       .then(res => {
-        console.log(res);
         const weatherData = {
           city: res.city.name,
           id: "fiveDaysForecast"
@@ -48,7 +52,10 @@ function App() {
           }
           dayinfo.hourlyData.push({
             temp: Math.round(res.list[i].main.temp),
-            time: res.list[i].dt_txt.slice(11, 16)
+            time: res.list[i].dt_txt.slice(11, 16),
+            pressure: res.list[i].main.pressure,
+            humidity: res.list[i].main.humidity,
+            weather: res.list[i].weather[0].description
           })
         }
         weatherData.array = array;
@@ -79,33 +86,19 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    console.log("Data changed to: ", data)
-  }, [data])
-
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Searchbar getWeatherInCurrentPosition={getWeatherInCurrentPosition} getCoordinates={requestCoordinates} getCurrentWeather={getCurrentWeather} getFiveDaysForecast={getFiveDaysForecast} checkbox={checkbox} setCheckbox={setCheckbox} />
-        <section>
+        <section className={styles.searchbarContainer}>
+          <Searchbar getWeatherInCurrentPosition={getWeatherInCurrentPosition} getCoordinates={requestCoordinates} getCurrentWeather={getCurrentWeather} getFiveDaysForecast={getFiveDaysForecast} checkbox={checkbox} setCheckbox={setCheckbox} />
+        </section>
+        <section className={styles.displayContainer}>
           {data.id === "currentWeather" ? (
-            <CurrentWeatherDisplay data={data}/>
+            <CurrentWeatherDisplay data={data} />
           ) : data.id === "fiveDaysForecast" ? (
-            <div>
-              <h1>The weather in the city of {data.city} is:</h1>
-              {data.array.map((item, index) => (
-                <div key={index}>
-                  <h2>Date: {item.date}</h2>
-                  {item.hourlyData.map((hourlyItem, hourlyIndex) => (
-                    <div key={hourlyIndex}>
-                      <p>Time: {hourlyItem.time}, Temperature: {hourlyItem.temp} &deg;C</p>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+            <FiveDaysForecastDisplay data={data} />
           ) : (
-            <div>No weather data yet</div>
+            <div className={styles.noDataInfo}>No weather data yet</div>
           )}
         </section>
       </main>

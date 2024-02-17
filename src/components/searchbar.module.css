@@ -1,3 +1,77 @@
-.title {
-    color: blue;
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
+
+.optionsContainer {
+    display: flex;
+    width: 240px;
+    justify-content: space-between;
+}
+
+.labelName {
+    font-size: 14px;
+}
+
+.currentlocationButton {
+    width: 240px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: all .3s linear;
+}
+
+.currentlocationButton:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.searchForm {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+}
+
+.input {
+    width: 240px;
+    height: 30px;
+    border: none;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+.searchButton {
+    width: 240px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: all .3s linear;
+}
+
+.searchButton:hover {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+}
+
+.errorMessage {
+    margin-top: 10px;
+    color: red;
+}
+
+@media screen and (max-width: 865px) {
+
+  }

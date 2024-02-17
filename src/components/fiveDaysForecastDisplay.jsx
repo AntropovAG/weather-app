@@ -1,20 +1,38 @@
-export default function FiveDaysForecastDisplay({data}) {
-    console.log(data)
-    const {city, array} = data
+import styles from "./fiveDaysForecastDisplay.module.css";
 
-    return (
-        <div>
-        <h1>The weather in the city of {city} is:</h1>
+export default function FiveDaysForecastDisplay({ data }) {
+  const { city, array } = data;
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const options = { month: "long", day: "numeric" };
+    const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+      date
+    );
+    return formattedDate;
+  }
+
+  return (
+    <>
+      <h2 className={styles.cityName}>{city}</h2>
+      <div className={styles.container}>
         {array.map((item, index) => (
-          <div key={index}>
-            <h2>Date: {item.date}</h2>
-            {item.hourlyData.map((hourlyItem, hourlyIndex) => (
-              <div key={hourlyIndex}>
-                <p>Time: {hourlyItem.time}, Temperature: {hourlyItem.temp} &deg;C</p>
-              </div>
-            ))}
-          </div>
+          <>
+            <h3 className={styles.date}>{formatDate(item.date)}</h3>
+            <div key={index} className={styles.dateContainer}>
+              {item.hourlyData.map((hourlyItem, hourlyIndex) => (
+                <div key={hourlyIndex} className={styles.itemContainer}>
+                  <h3 className={styles.hour}>{hourlyItem.time}</h3>
+                  <p className={styles.temperature}>{hourlyItem.temp}&deg;C</p>
+                  <p className={styles.weather}>{hourlyItem.weather}</p>
+                  <p className={styles.info}>Humidity: {hourlyItem.humidity}%</p>
+                  <p className={styles.info}>Pressure: {hourlyItem.pressure}</p>
+                </div>
+              ))}
+            </div>
+          </>
         ))}
       </div>
-    )
+    </>
+  );
 }

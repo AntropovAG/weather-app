@@ -47,10 +47,9 @@ export default function Searchbar({
   }
 
   return (
-    <section>
-      <div>
-        <div>
-          <label className={styles.title} htmlFor="current">
+      <div className={styles.container}>
+        <div className={styles.optionsContainer}>
+          <label className={styles.labelName} htmlFor="current">
             Current
           </label>
           <input
@@ -60,7 +59,7 @@ export default function Searchbar({
             onChange={() => setCheckbox("current")}
             checked={checkbox === "current" ? true : false}
           />
-          <label htmlFor="fiveDays">Five days forecast</label>
+          <label className={styles.labelName} htmlFor="fiveDays">Five days forecast</label>
           <input
             type="radio"
             id="fiveDays"
@@ -69,20 +68,19 @@ export default function Searchbar({
             checked={checkbox === "fiveDays" ? true : false}
           />
         </div>
-        <button type="button" onClick={getWeatherInCurrentPosition}>
+        <button className={styles.currentlocationButton} type="button" onClick={getWeatherInCurrentPosition}>
           Show current location
         </button>
-        <form action="submit" onSubmit={onSubmit}>
+        <form className={styles.searchForm} action="submit" onSubmit={onSubmit}>
           <input
+            className={styles.input}
             type="text"
             id="cityName"
             onChange={(e) => setCityName(e.target.value)}
           />
-          <button type="submit">Search</button>
-          <span>{errorMessage}</span>
+          <button className={styles.searchButton} type="submit">Search</button>
+          <span className={styles.errorMessage}>{errorMessage}</span>
         </form>
       </div>
-      <div></div>
-    </section>
   );
 }
