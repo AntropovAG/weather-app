@@ -76,6 +76,7 @@ export default function Searchbar({
             className={styles.input}
             type="text"
             id="cityName"
+            placeholder="Enter city name"
             onChange={(e) => setCityName(e.target.value)}
           />
           <button className={styles.searchButton} type="submit">Search</button>
