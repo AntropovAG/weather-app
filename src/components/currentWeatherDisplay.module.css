@@ -1,6 +1,5 @@
 .container {
     justify-self: center;
-    width: 30%;
     display: flex;
     gap: 20px;
     flex-direction: column;
