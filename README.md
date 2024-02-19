@@ -1,6 +1,6 @@
 # Weather forecast widget
 
-## Tachnical 
+## Technical 
 - Application created using React.
 
 - React style modules are used.
