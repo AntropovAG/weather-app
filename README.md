@@ -1,6 +1,6 @@
 # Weather forecast widget
 
-## Tachnical 
+## Technical 
 - Application created using React.
 
 - React style modules are used.
@@ -15,3 +15,8 @@
 - user can use a button to get a current location weather (if the user provides corresponding access to the APP).
 
 - user can use searchbar to find the weather in other cities.
+
+#### Project page
+
+you may access to the project at: 
+https://antropovag.github.io/weather-app/
